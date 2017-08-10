@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Academy School</title>
+<script src="https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css" rel='stylesheet' />
+
+<link rel="stylesheet" href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css">
+<script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>
+<script
+src="https://code.jquery.com/jquery-3.2.1.js"
+integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+crossorigin="anonymous"></script>
+<script
+src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+crossorigin="anonymous"></script>
+<script src="https://releases.route360.net/r360-js/latest.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+<style>
+html, body { width: 100%; height: 100%; margin: 0; }
+#map { width: 100%; height: 100%; }
+.star{ font-size: 1.5em; }
+#app {
+height: 300px;
+}
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<script>
+
+var redMarker = L.AwesomeMarkers.icon({
+icon: 'star',
+iconSize:     [10, 10], // size of the icon
+shadowSize:   [20, 20], // size of the shadow
+iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
+shadowAnchor: [0, 0],  // the same for the shadow
+popupAnchor:  [0, 0], // point from which the popup should open relative to the iconAnchor
+markerColor: 'purple'
+});
+
+
+var pixel = 10;
+var latlon = [42.851176, -72.597994];
+
+var schools = L.layerGroup();
+
+L.marker([42.851176, -72.597994], {icon: redMarker}).bindPopup('Academy School').addTo(schools),
+L.marker([44.0879679, -73.304713], {icon: redMarker}).bindPopup('Addison Central School').addTo(schools),
+L.marker([44.737995, -72.376839], {icon: redMarker}).bindPopup('Albany Community School').addTo(schools),
+L.marker([43.4694223, -72.4714816], {icon: redMarker}).bindPopup('Albert Bridge Sch (W Wind)').addTo(schools),
+L.marker([44.4869722, -73.0987693], {icon: redMarker}).bindPopup('Albert D Lawton School').addTo(schools),
+L.marker([44.979204, -73.2982707], {icon: redMarker}).bindPopup('Alburgh Community Ed Center').addTo(schools),
+L.marker([43.065997, -73.1508814], {icon: redMarker}).bindPopup('Arlington Memorial High School').addTo(schools),
+L.marker([43.170174, -72.609009], {icon: redMarker}).bindPopup('Athens-Grafton Joint Contract School').addTo(schools),
+L.marker([44.7842811, -72.8027989], {icon: redMarker}).bindPopup('Bakersfield School').addTo(schools),
+L.marker([43.7271345, -72.6195002], {icon: redMarker}).bindPopup('Barnard Academy').addTo(schools),
+L.marker([44.307334, -72.080737], {icon: redMarker}).bindPopup('Barnet Elementary School').addTo(schools),
+L.marker([44.1845142, -72.5047609], {icon: redMarker}).bindPopup('Barre City Elem-Middle School').addTo(schools),
+L.marker([44.1845142, -72.5047609], {icon: redMarker}).bindPopup('Barre City Elem-Middle School').addTo(schools),
+L.marker([44.168403, -72.486165], {icon: redMarker}).bindPopup('Barre Town Elementary School').addTo(schools),
+L.marker([44.168403, -72.486165], {icon: redMarker}).bindPopup('Barre Town Elementary School').addTo(schools),
+L.marker([43.7010447, -72.9524235], {icon: redMarker}).bindPopup('Barstow Memorial School').addTo(schools),
+L.marker([44.749023, -72.180092], {icon: redMarker}).bindPopup('Barton Graded School').addTo(schools),
+L.marker([44.125328, -73.153222], {icon: redMarker}).bindPopup('Beeman Elementary School').addTo(schools),
+L.marker([43.1333656, -72.4462749], {icon: redMarker}).bindPopup('Bellows Falls Middle School').addTo(schools),
+L.marker([43.1364725, -72.4442318], {icon: redMarker}).bindPopup('Bellows Falls Uhs No 27').addTo(schools),
+L.marker([44.6635996, -73.0132732], {icon: redMarker}).bindPopup('Bellows Free Academy (Fairfax)').addTo(schools),
+L.marker([44.8080266, -73.0828117], {icon: redMarker}).bindPopup('Bellows Free Academy (St Albans)').addTo(schools),
+L.marker([44.6635539, -73.0133096], {icon: redMarker}).bindPopup('Bellows Free Academy Hs (Fairfax)').addTo(schools),
+L.marker([42.88073, -73.1935139], {icon: redMarker}).bindPopup('Bennington Elementary School').addTo(schools),
+L.marker([43.7072408, -73.302237], {icon: redMarker}).bindPopup('Benson Village School').addTo(schools),
+L.marker([44.9724974, -72.7662099], {icon: redMarker}).bindPopup('Berkshire Elementary School').addTo(schools),
+L.marker([44.2145063, -72.5717356], {icon: redMarker}).bindPopup('Berlin Elementary School').addTo(schools),
+L.marker([43.833232, -72.6435], {icon: redMarker}).bindPopup('Bethel Elementary School').addTo(schools),
+L.marker([43.963902, -73.2063979], {icon: redMarker}).bindPopup('Bingham Memorial School').addTo(schools),
+L.marker([43.397114, -72.688557], {icon: redMarker}).bindPopup('Black River Us No 39').addTo(schools),
+L.marker([44.1553744, -72.0833144], {icon: redMarker}).bindPopup('Blue Mountain Us No 21').addTo(schools),
+L.marker([44.0026079, -72.1224734], {icon: redMarker}).bindPopup('Bradford Elementary School').addTo(schools),
+L.marker([43.955559, -72.72245], {icon: redMarker}).bindPopup('Braintree School').addTo(schools),
+L.marker([42.83564, -72.561716], {icon: redMarker}).bindPopup('Bratt Area Middle School No 6').addTo(schools),
+L.marker([42.836739, -72.561267], {icon: redMarker}).bindPopup('Brattleboro Uhs No 6').addTo(schools),
+L.marker([44.2958697, -72.9634251], {icon: redMarker}).bindPopup('Brewster Pierce Elementary School').addTo(schools),
+L.marker([43.9809453, -73.3158066], {icon: redMarker}).bindPopup('Bridport Central School').addTo(schools),
+L.marker([44.8215785, -71.8938945], {icon: redMarker}).bindPopup('Brighton Elementary School').addTo(schools),
+L.marker([44.1379395, -73.0770421], {icon: redMarker}).bindPopup('Bristol Elementary School').addTo(schools),
+L.marker([44.016395, -72.606683], {icon: redMarker}).bindPopup('Brookfield Elementary School').addTo(schools),
+L.marker([44.819904, -72.137688], {icon: redMarker}).bindPopup('Brownington Central School').addTo(schools),
+L.marker([44.5192478, -72.9441695], {icon: redMarker}).bindPopup('Browns River Middle School').addTo(schools),
+L.marker([44.625084, -71.960265], {icon: redMarker}).bindPopup('Burke Town School').addTo(schools),
+L.marker([44.4963229, -73.235261], {icon: redMarker}).bindPopup('Burlington Senior High School').addTo(schools),
+L.marker([43.163803, -73.077354], {icon: redMarker}).bindPopup('Burr And Burton Academy').addTo(schools),
+L.marker([44.513102, -73.243035], {icon: redMarker}).bindPopup('C P Smith School').addTo(schools),
+L.marker([44.4034302, -72.3093359], {icon: redMarker}).bindPopup('Cabot School').addTo(schools),
+L.marker([44.3193948, -72.4516452], {icon: redMarker}).bindPopup('Calais Elementary School').addTo(schools),
+L.marker([44.6444743, -72.8267715], {icon: redMarker}).bindPopup('CamBridge Elementary School').addTo(schools),
+L.marker([44.4135271, -72.9943127], {icon: redMarker}).bindPopup('Camels Hump Middle School').addTo(schools),
+L.marker([44.99537, -71.537662], {icon: redMarker}).bindPopup('Canaan Schools').addTo(schools),
+L.marker([43.612408, -73.1782069], {icon: redMarker}).bindPopup('Castleton Hubbardton Us No 42').addTo(schools),
+L.marker([43.612408, -73.1782069], {icon: redMarker}).bindPopup('Castleton Hubbardton Us No 42').addTo(schools),
+L.marker([43.3836765, -72.6368872], {icon: redMarker}).bindPopup('Cavendish Town Elem School').addTo(schools),
+L.marker([43.1324177, -72.4505775], {icon: redMarker}).bindPopup('Central Elementary School').addTo(schools),
+L.marker([44.4713727, -73.1654672], {icon: redMarker}).bindPopup('Chamberlin School').addTo(schools),
+L.marker([44.457065, -73.213221], {icon: redMarker}).bindPopup('Champlain Elementary School').addTo(schools),
+L.marker([44.3446552, -73.1099525], {icon: redMarker}).bindPopup('Champlain Valley Uhs No 15').addTo(schools),
+L.marker([44.843109, -72.019768], {icon: redMarker}).bindPopup('Charleston Elem School').addTo(schools),
+L.marker([44.315086, -73.226451], {icon: redMarker}).bindPopup('Charlotte Central School').addTo(schools),
+L.marker([43.987282, -72.446617], {icon: redMarker}).bindPopup('Chelsea Elem High School').addTo(schools),
+L.marker([43.2646923, -72.5954546], {icon: redMarker}).bindPopup('Chester Andover Us No 29').addTo(schools),
+L.marker([43.5634, -72.96786], {icon: redMarker}).bindPopup('Clarendon Elementary School').addTo(schools),
+L.marker([44.5399122, -73.2138341], {icon: redMarker}).bindPopup('Colchester High School').addTo(schools),
+L.marker([44.5405118, -73.2097507], {icon: redMarker}).bindPopup('Colchester Middle School').addTo(schools),
+L.marker([44.4266783, -71.8904607], {icon: redMarker}).bindPopup('Concord Graded-Middle School').addTo(schools),
+L.marker([44.8628287, -72.2650021], {icon: redMarker}).bindPopup('Coventry Village School').addTo(schools),
+L.marker([44.6541939, -72.381984], {icon: redMarker}).bindPopup('Craftsbury Schools').addTo(schools),
+L.marker([44.321123, -72.7528363], {icon: redMarker}).bindPopup('Crossett Brook Middle Us No 45').addTo(schools),
+L.marker([43.3497894, -72.9951757], {icon: redMarker}).bindPopup('Currier Memorial Us No 23').addTo(schools),
+L.marker([44.4108915, -72.1437508], {icon: redMarker}).bindPopup('Danville School').addTo(schools),
+L.marker([45.001503, -72.118345], {icon: redMarker}).bindPopup('Derby Elementary School').addTo(schools),
+L.marker([43.2219794, -73.0657074], {icon: redMarker}).bindPopup('Dorset School').addTo(schools),
+L.marker([43.687628, -72.3217171], {icon: redMarker}).bindPopup('Dothan Brook School').addTo(schools),
+L.marker([44.373349, -72.547949], {icon: redMarker}).bindPopup('Doty Memorial School').addTo(schools),
+L.marker([42.938863, -72.80991], {icon: redMarker}).bindPopup('Dover Elementary School').addTo(schools),
+L.marker([42.9336033, -72.5379992], {icon: redMarker}).bindPopup('Dummerston Schools').addTo(schools),
+L.marker([44.2866171, -72.4953304], {icon: redMarker}).bindPopup('East Montpelier Elem School').addTo(schools),
+L.marker([44.704038, -72.563901], {icon: redMarker}).bindPopup('Eden Central School').addTo(schools),
+L.marker([44.475518, -73.20729], {icon: redMarker}).bindPopup('Edmunds Elementary School').addTo(schools),
+L.marker([44.475468, -73.208086], {icon: redMarker}).bindPopup('Edmunds Middle School').addTo(schools),
+L.marker([43.3061209, -72.4844404], {icon: redMarker}).bindPopup('Elm Hill School').addTo(schools),
+L.marker([44.5393373, -72.5222732], {icon: redMarker}).bindPopup('Elmore School').addTo(schools),
+L.marker([44.904316, -72.801033], {icon: redMarker}).bindPopup('Enosburg Falls Elementary School').addTo(schools),
+L.marker([44.9053176, -72.8039149], {icon: redMarker}).bindPopup('Enosburg Falls Middle-High School').addTo(schools),
+L.marker([44.9053176, -72.8039149], {icon: redMarker}).bindPopup('Enosburg Falls Middle-High School').addTo(schools),
+L.marker([44.4982009, -73.1100265], {icon: redMarker}).bindPopup('Essex Community Ed Center').addTo(schools),
+L.marker([44.5130041, -73.0555147], {icon: redMarker}).bindPopup('Essex Elementary School').addTo(schools),
+L.marker([44.4992447, -73.0579969], {icon: redMarker}).bindPopup('Essex Middle School').addTo(schools),
+L.marker([43.5948092, -73.2644651], {icon: redMarker}).bindPopup('Fair Haven Grade School').addTo(schools),
+L.marker([43.6035814, -73.2703625], {icon: redMarker}).bindPopup('Fair Haven Uhs No 16').addTo(schools),
+L.marker([44.80051, -72.947922], {icon: redMarker}).bindPopup('Fairfield Center School').addTo(schools),
+L.marker([44.1791977, -72.8842112], {icon: redMarker}).bindPopup('Fayston Elementary School').addTo(schools),
+L.marker([44.2067279, -73.2478787], {icon: redMarker}).bindPopup('Ferrisburgh Central School').addTo(schools),
+L.marker([43.066169, -73.153659], {icon: redMarker}).bindPopup('Fisher School').addTo(schools),
+L.marker([44.67049, -72.923782], {icon: redMarker}).bindPopup('Fletcher Elementary School').addTo(schools),
+L.marker([43.2367859, -72.8480324], {icon: redMarker}).bindPopup('Flood Brook Us No 20').addTo(schools),
+L.marker([44.636311, -73.3022079], {icon: redMarker}).bindPopup('Folsom Ed And Community Ctr').addTo(schools),
+L.marker([44.5004481, -73.0553216], {icon: redMarker}).bindPopup('Founders Memorial School').addTo(schools),
+L.marker([44.9842389, -72.9201647], {icon: redMarker}).bindPopup('Franklin Elementary School').addTo(schools),
+L.marker([44.4567486, -73.1774257], {icon: redMarker}).bindPopup('Frederick H Tuttle Middle School').addTo(schools),
+L.marker([44.7350207, -73.1144163], {icon: redMarker}).bindPopup('Georgia Elem-Middle School').addTo(schools),
+L.marker([44.7350207, -73.1144163], {icon: redMarker}).bindPopup('Georgia Elem-Middle School').addTo(schools),
+L.marker([44.705938, -72.189466], {icon: redMarker}).bindPopup('Glover Community School').addTo(schools),
+L.marker([44.725599, -73.2915204], {icon: redMarker}).bindPopup('Grand Isle School').addTo(schools),
+L.marker([43.253613, -72.581459], {icon: redMarker}).bindPopup('Green Mountain Uhs No 35').addTo(schools),
+L.marker([42.85174, -72.565], {icon: redMarker}).bindPopup('Green Street School').addTo(schools),
+L.marker([42.800709, -72.6223515], {icon: redMarker}).bindPopup('Guilford Central School').addTo(schools),
+L.marker([42.784431, -72.768503], {icon: redMarker}).bindPopup('Halifax School').addTo(schools),
+L.marker([44.5033274, -72.3681449], {icon: redMarker}).bindPopup('Hardwick Elementary School').addTo(schools),
+L.marker([43.657753, -72.318855], {icon: redMarker}).bindPopup('Hartford High School').addTo(schools),
+L.marker([43.6563504, -72.3201992], {icon: redMarker}).bindPopup('Hartford Mem Middle School').addTo(schools),
+L.marker([43.5379884, -72.3942648], {icon: redMarker}).bindPopup('Hartland Elementary School').addTo(schools),
+L.marker([44.2539876, -72.7867166], {icon: redMarker}).bindPopup('Harwood Uhs No 19').addTo(schools),
+L.marker([44.2540115, -72.7864532], {icon: redMarker}).bindPopup('Harwood Union Middle Uhs No 19').addTo(schools),
+L.marker([44.508976, -72.364634], {icon: redMarker}).bindPopup('Hazen Uhs No 26').addTo(schools),
+L.marker([44.4885517, -73.1269076], {icon: redMarker}).bindPopup('Hiawatha School').addTo(schools),
+L.marker([44.94117, -73.044022], {icon: redMarker}).bindPopup('Highgate Elementary School').addTo(schools),
+L.marker([44.32621, -73.10778], {icon: redMarker}).bindPopup('Hinesburg Community School').addTo(schools),
+L.marker([44.32621, -73.10778], {icon: redMarker}).bindPopup('Hinesburg Community School').addTo(schools),
+L.marker([44.9730783, -72.0133074], {icon: redMarker}).bindPopup('Holland Elementary School').addTo(schools),
+L.marker([44.591888, -72.6137179], {icon: redMarker}).bindPopup('Hyde Park Elementary School').addTo(schools),
+L.marker([44.4881833, -73.213765], {icon: redMarker}).bindPopup('Integrated Arts Acad At Ho Wheeler').addTo(schools),
+L.marker([44.8036308, -72.2728506], {icon: redMarker}).bindPopup('Irasburg Village School').addTo(schools),
+L.marker([44.8823346, -73.346067], {icon: redMarker}).bindPopup('Isle La Motte Elem School').addTo(schools),
+L.marker([44.500416, -73.180687], {icon: redMarker}).bindPopup('J F Kennedy Elem School').addTo(schools),
+L.marker([44.517023, -73.260002], {icon: redMarker}).bindPopup('J J Flynn School').addTo(schools),
+L.marker([43.103771, -72.775345], {icon: redMarker}).bindPopup('Jamaica Village School').addTo(schools),
+L.marker([44.952663, -72.435028], {icon: redMarker}).bindPopup('Jay-Westfield Joint School').addTo(schools),
+L.marker([44.5053714, -72.9897701], {icon: redMarker}).bindPopup('Jericho Elementary School').addTo(schools),
+L.marker([44.637031, -72.674763], {icon: redMarker}).bindPopup('Johnson Elementary School').addTo(schools),
+L.marker([43.6446821, -72.7941643], {icon: redMarker}).bindPopup('Killington Elementary School').addTo(schools),
+L.marker([44.782603, -72.220649], {icon: redMarker}).bindPopup('Lake Region Uhs No 24').addTo(schools),
+L.marker([44.5807538, -72.2939152], {icon: redMarker}).bindPopup('Lakeview Us No 43').addTo(schools),
+L.marker([44.6010887, -72.6319369], {icon: redMarker}).bindPopup('Lamoille Uhs No 18').addTo(schools),
+L.marker([44.6010887, -72.6319369], {icon: redMarker}).bindPopup('Lamoille Union Middle School No 18').addTo(schools),
+L.marker([43.8667079, -73.1088581], {icon: redMarker}).bindPopup('Leicester Central School').addTo(schools),
+L.marker([43.0465917, -72.6670936], {icon: redMarker}).bindPopup('Leland And Gray Uhs No 34').addTo(schools),
+L.marker([43.0465917, -72.6670936], {icon: redMarker}).bindPopup('Leland And Gray Uhs No 34').addTo(schools),
+L.marker([44.09766, -72.986305], {icon: redMarker}).bindPopup('Lincoln Community School').addTo(schools),
+L.marker([43.7055257, -73.0190098], {icon: redMarker}).bindPopup('Lothrop School').addTo(schools),
+L.marker([44.8053359, -72.448708], {icon: redMarker}).bindPopup('Lowell Graded School').addTo(schools),
+L.marker([43.3979669, -72.688735], {icon: redMarker}).bindPopup('Ludlow Elementary School').addTo(schools),
+L.marker([44.4147729, -71.714483], {icon: redMarker}).bindPopup('Lunenburg-Gilman Schools').addTo(schools),
+L.marker([44.5132798, -73.2491272], {icon: redMarker}).bindPopup('Lyman C Hunt Middle School').addTo(schools),
+L.marker([44.5384146, -72.0153659], {icon: redMarker}).bindPopup('Lyndon Institute').addTo(schools),
+L.marker([44.5465485, -71.9853549], {icon: redMarker}).bindPopup('Lyndon Town School').addTo(schools),
+L.marker([44.2629656, -72.5695793], {icon: redMarker}).bindPopup('Main Street Middle School').addTo(schools),
+L.marker([44.5387028, -73.2076928], {icon: redMarker}).bindPopup('Malletts Bay School').addTo(schools),
+L.marker([43.178738, -73.053734], {icon: redMarker}).bindPopup('Manchester Elem-Middle School').addTo(schools),
+L.marker([43.178738, -73.053734], {icon: redMarker}).bindPopup('Manchester Elem-Middle School').addTo(schools),
+L.marker([43.7132317, -72.3063544], {icon: redMarker}).bindPopup('Marion W Cross School').addTo(schools),
+L.marker([42.868698, -72.719688], {icon: redMarker}).bindPopup('Marlboro Elementary School').addTo(schools),
+L.marker([43.3857682, -73.2243815], {icon: redMarker}).bindPopup('Mettawee Community Us No 47').addTo(schools),
+L.marker([44.0105946, -73.1616527], {icon: redMarker}).bindPopup('Middlebury  idno 4').addTo(schools),
+L.marker([44.0065835, -73.1630676], {icon: redMarker}).bindPopup('Middlebury Union High School').addTo(schools),
+L.marker([43.9982614, -73.1524356], {icon: redMarker}).bindPopup('Middlebury Union Middle School No 3').addTo(schools),
+L.marker([43.4839636, -73.1203383], {icon: redMarker}).bindPopup('Middletown Springs Elem School').addTo(schools),
+L.marker([43.547028, -72.97152], {icon: redMarker}).bindPopup('Mill River Us No 40').addTo(schools),
+L.marker([44.6026961, -72.1192335], {icon: redMarker}).bindPopup('Millers Run School Us No 37').addTo(schools),
+L.marker([44.6324836, -73.1098197], {icon: redMarker}).bindPopup('Milton Elementary School').addTo(schools),
+L.marker([44.6324836, -73.1098197], {icon: redMarker}).bindPopup('Milton Elementary School').addTo(schools),
+L.marker([44.6280816, -73.1197457], {icon: redMarker}).bindPopup('Milton High School').addTo(schools),
+L.marker([44.6280816, -73.1197457], {icon: redMarker}).bindPopup('Milton High School').addTo(schools),
+L.marker([44.6280816, -73.1197457], {icon: redMarker}).bindPopup('Milton Middle School').addTo(schools),
+L.marker([44.927863, -73.1018239], {icon: redMarker}).bindPopup('Missisquoi Valley Uhs No 7').addTo(schools),
+L.marker([42.8992571, -73.2017039], {icon: redMarker}).bindPopup('Molly Stark School').addTo(schools),
+L.marker([44.2441871, -73.1389253], {icon: redMarker}).bindPopup('Monkton Central School').addTo(schools),
+L.marker([44.8864293, -72.6162041], {icon: redMarker}).bindPopup('Montgomery Elementary School').addTo(schools),
+L.marker([44.2605339, -72.5869944], {icon: redMarker}).bindPopup('Montpelier High School').addTo(schools),
+L.marker([42.8850209, -73.2106215], {icon: redMarker}).bindPopup('Monument Elementary School').addTo(schools),
+L.marker([44.247814, -72.7630619], {icon: redMarker}).bindPopup('Moretown Elementary School').addTo(schools),
+L.marker([44.5636467, -72.5855112], {icon: redMarker}).bindPopup('Morristown Elem Schools').addTo(schools),
+L.marker([44.1354759, -73.0939654], {icon: redMarker}).bindPopup('Mt Abraham Uhs No 28').addTo(schools),
+L.marker([42.8863217, -73.1913331], {icon: redMarker}).bindPopup('Mt Anthony Sr Uhs No 14').addTo(schools),
+L.marker([42.9054159, -73.1877428], {icon: redMarker}).bindPopup('Mt Anthony Union Middle School').addTo(schools),
+L.marker([43.44585, -72.823055], {icon: redMarker}).bindPopup('Mt Holly School').addTo(schools),
+L.marker([44.486184, -72.962048], {icon: redMarker}).bindPopup('Mt Mansfield Usd').addTo(schools),
+L.marker([43.8264649, -73.0552279], {icon: redMarker}).bindPopup('Neshobe School').addTo(schools),
+L.marker([44.690121, -71.950768], {icon: redMarker}).bindPopup('Newark School').addTo(schools),
+L.marker([42.9599339, -72.650055], {icon: redMarker}).bindPopup('Newbrook Elementary School').addTo(schools),
+L.marker([44.0794494, -72.0603798], {icon: redMarker}).bindPopup('Newbury Elementary School').addTo(schools),
+L.marker([44.9449812, -72.1921709], {icon: redMarker}).bindPopup('Newport City Elem Schools').addTo(schools),
+L.marker([44.9509976, -72.3068892], {icon: redMarker}).bindPopup('Newport Town School').addTo(schools),
+L.marker([43.8350684, -72.3653719], {icon: redMarker}).bindPopup('Newton School').addTo(schools),
+L.marker([44.946129, -72.203537], {icon: redMarker}).bindPopup('North Country Uhs No 22A').addTo(schools),
+L.marker([44.9493054, -72.1313134], {icon: redMarker}).bindPopup('North Country Union Jr High No 22B').addTo(schools),
+L.marker([44.8508342, -73.2634981], {icon: redMarker}).bindPopup('North Hero School').addTo(schools),
+L.marker([43.617752, -72.96212], {icon: redMarker}).bindPopup('Northeast Primary School').addTo(schools),
+L.marker([44.15455, -72.662072], {icon: redMarker}).bindPopup('Northfield Elementary School').addTo(schools),
+L.marker([44.153568, -72.660537], {icon: redMarker}).bindPopup('Northfield Middle-High School').addTo(schools),
+L.marker([43.6127619, -72.991417], {icon: redMarker}).bindPopup('Northwest Primary School').addTo(schools),
+L.marker([42.8401525, -72.5579901], {icon: redMarker}).bindPopup('Oak Grove School').addTo(schools),
+L.marker([44.1490229, -72.4035558], {icon: redMarker}).bindPopup('Orange Center School').addTo(schools),
+L.marker([44.439761, -73.207682], {icon: redMarker}).bindPopup('Orchard School').addTo(schools),
+L.marker([43.7200805, -72.2662366], {icon: redMarker}).bindPopup('Orford Schools').addTo(schools),
+L.marker([44.810055, -72.196754], {icon: redMarker}).bindPopup('Orleans Elementary School').addTo(schools),
+L.marker([43.804552, -73.299154], {icon: redMarker}).bindPopup('Orwell Village School').addTo(schools),
+L.marker([43.6494962, -72.4168673], {icon: redMarker}).bindPopup('Ottauquechee School').addTo(schools),
+L.marker([43.7671716, -73.0515465], {icon: redMarker}).bindPopup('Otter Valley Uhs No 8').addTo(schools),
+L.marker([43.7671716, -73.0515465], {icon: redMarker}).bindPopup('Otter Valley Uhs No 8').addTo(schools),
+L.marker([44.0078701, -72.1139269], {icon: redMarker}).bindPopup('Oxbow Uhs No 30').addTo(schools),
+L.marker([44.326018, -72.16652], {icon: redMarker}).bindPopup('Peacham Elementary School').addTo(schools),
+L.marker([44.5626651, -72.590118], {icon: redMarker}).bindPopup('Peoples Academy').addTo(schools),
+L.marker([44.5626651, -72.590118], {icon: redMarker}).bindPopup('Peoples Academy Middle School').addTo(schools),
+L.marker([44.5412597, -73.2553252], {icon: redMarker}).bindPopup('Porters Point School').addTo(schools),
+L.marker([43.524576, -73.237674], {icon: redMarker}).bindPopup('Poultney Elementary School').addTo(schools),
+L.marker([43.5165455, -73.2294684], {icon: redMarker}).bindPopup('Poultney High School').addTo(schools),
+L.marker([42.8008263, -73.2179873], {icon: redMarker}).bindPopup('Pownal Elementary School').addTo(schools),
+L.marker([43.6618191, -73.038619], {icon: redMarker}).bindPopup('Proctor Elementary School').addTo(schools),
+L.marker([43.6550274, -73.0291312], {icon: redMarker}).bindPopup('Proctor Jr-Sr High School').addTo(schools),
+L.marker([42.9858892, -72.5284672], {icon: redMarker}).bindPopup('Putney Central School').addTo(schools),
+L.marker([43.9338797, -72.6604606], {icon: redMarker}).bindPopup('Randolph Elementary School').addTo(schools),
+L.marker([43.9338797, -72.6604606], {icon: redMarker}).bindPopup('Randolph Elementary School').addTo(schools),
+L.marker([43.930991, -72.659752], {icon: redMarker}).bindPopup('Randolph Uhs No 2').addTo(schools),
+L.marker([43.930991, -72.659752], {icon: redMarker}).bindPopup('Randolph Uhs No 2').addTo(schools),
+L.marker([43.453125, -72.536659], {icon: redMarker}).bindPopup('Reading Elementary School').addTo(schools),
+L.marker([42.771786, -72.940575], {icon: redMarker}).bindPopup('Readsboro Elementary School').addTo(schools),
+L.marker([44.9859909, -72.6802834], {icon: redMarker}).bindPopup('Richford Elementary School').addTo(schools),
+L.marker([44.995025, -72.670086], {icon: redMarker}).bindPopup('Richford Jr-Sr High School').addTo(schools),
+L.marker([44.4126297, -72.9939168], {icon: redMarker}).bindPopup('Richmond Elementary School').addTo(schools),
+L.marker([44.467307, -73.1769103], {icon: redMarker}).bindPopup('Rick Marcotte Central School').addTo(schools),
+L.marker([43.9852144, -73.0382352], {icon: redMarker}).bindPopup('Ripton Elementary School').addTo(schools),
+L.marker([43.899294, -72.1376509], {icon: redMarker}).bindPopup('Rivendell Academy').addTo(schools),
+L.marker([43.3045496, -72.4971886], {icon: redMarker}).bindPopup('Rivers ide Middle School').addTo(schools),
+L.marker([44.223866, -73.057693], {icon: redMarker}).bindPopup('Robinson School').addTo(schools),
+L.marker([43.8717466, -72.8091872], {icon: redMarker}).bindPopup('Rochester School').addTo(schools),
+L.marker([44.092411, -72.733185], {icon: redMarker}).bindPopup('Roxbury Village School').addTo(schools),
+L.marker([44.351158, -72.602592], {icon: redMarker}).bindPopup('Rumney Memorial School (Middlesex)').addTo(schools),
+L.marker([43.6174987, -72.9546905], {icon: redMarker}).bindPopup('Rutland High School').addTo(schools),
+L.marker([43.6131406, -72.9797488], {icon: redMarker}).bindPopup('Rutland Intermediate School').addTo(schools),
+L.marker([43.6129104, -72.9809901], {icon: redMarker}).bindPopup('Rutland Middle School').addTo(schools),
+L.marker([43.6386836, -72.9634995], {icon: redMarker}).bindPopup('Rutland Town Elem School').addTo(schools),
+L.marker([43.9197119, -73.11792], {icon: redMarker}).bindPopup('Salisbury Community School').addTo(schools),
+L.marker([43.9079275, -72.1461984], {icon: redMarker}).bindPopup('Samuel Morey Elementary School').addTo(schools),
+L.marker([43.140396, -72.509491], {icon: redMarker}).bindPopup('Saxtons River Elem School').addTo(schools),
+L.marker([42.945183, -73.207977], {icon: redMarker}).bindPopup('Shaftsbury Elem School').addTo(schools),
+L.marker([43.7849689, -72.456039], {icon: redMarker}).bindPopup('Sharon Elementary School').addTo(schools),
+L.marker([44.3807539, -73.2353556], {icon: redMarker}).bindPopup('Shelburne Community School').addTo(schools),
+L.marker([44.3807539, -73.2353556], {icon: redMarker}).bindPopup('Shelburne Community School').addTo(schools),
+L.marker([44.900993, -72.969269], {icon: redMarker}).bindPopup('Sheldon Elementary School').addTo(schools),
+L.marker([43.891708, -73.316238], {icon: redMarker}).bindPopup('Shoreham Elementary School').addTo(schools),
+L.marker([43.5255129, -72.830734], {icon: redMarker}).bindPopup('Shrewsbury Mountain School').addTo(schools),
+L.marker([44.373783, -72.876854], {icon: redMarker}).bindPopup('Smilie Memorial School(Bolton)').addTo(schools),
+L.marker([44.454924, -73.177891], {icon: redMarker}).bindPopup('So Burlington High School').addTo(schools),
+L.marker([43.819316, -72.517403], {icon: redMarker}).bindPopup('So Royalton Elem-High School').addTo(schools),
+L.marker([44.1894129, -72.4935438], {icon: redMarker}).bindPopup('Spaulding Uhs No 41').addTo(schools),
+L.marker([44.1894129, -72.4935438], {icon: redMarker}).bindPopup('Spaulding Uhs No 41').addTo(schools),
+L.marker([43.2811126, -72.4781557], {icon: redMarker}).bindPopup('Springfield High School').addTo(schools),
+L.marker([43.2811126, -72.4781557], {icon: redMarker}).bindPopup('Springfield High School').addTo(schools),
+L.marker([44.8203212, -73.0918318], {icon: redMarker}).bindPopup('St Albans City School').addTo(schools),
+L.marker([44.8016334, -73.0860045], {icon: redMarker}).bindPopup('St Albans Town Educ Center').addTo(schools),
+L.marker([44.4165493, -72.0193373], {icon: redMarker}).bindPopup('St Johnsbury Academy').addTo(schools),
+L.marker([44.4162817, -72.0244301], {icon: redMarker}).bindPopup('St Johnsbury Schools').addTo(schools),
+L.marker([44.4162817, -72.0244301], {icon: redMarker}).bindPopup('St Johnsbury Schools').addTo(schools),
+L.marker([42.7549141, -73.0672467], {icon: redMarker}).bindPopup('Stamford Elementary School').addTo(schools),
+L.marker([43.7642684, -72.7180883], {icon: redMarker}).bindPopup('StockBridge Central School').addTo(schools),
+L.marker([44.4630988, -72.6842541], {icon: redMarker}).bindPopup('Stowe Elementary School').addTo(schools),
+L.marker([44.46533, -72.726585], {icon: redMarker}).bindPopup('Stowe Middle-High School').addTo(schools),
+L.marker([44.46533, -72.726585], {icon: redMarker}).bindPopup('Stowe Middle-High School').addTo(schools),
+L.marker([43.822178, -73.185951], {icon: redMarker}).bindPopup('Sudbury Country School').addTo(schools),
+L.marker([44.493408, -73.11366], {icon: redMarker}).bindPopup('Summit Street School').addTo(schools),
+L.marker([43.0846207, -73.1277208], {icon: redMarker}).bindPopup('Sunderland Elem School').addTo(schools),
+L.marker([44.484143, -73.2167958], {icon: redMarker}).bindPopup('Sustain Acad At Lawrence Barnes').addTo(schools),
+L.marker([44.6335849, -72.0278777], {icon: redMarker}).bindPopup('Sutton Village School').addTo(schools),
+L.marker([44.9160554, -73.1147285], {icon: redMarker}).bindPopup('Swanton Schools').addTo(schools),
+L.marker([44.339128, -72.753139], {icon: redMarker}).bindPopup('Thatcher Brook Primary Us No 45').addTo(schools),
+L.marker([44.339128, -72.753139], {icon: redMarker}).bindPopup('Thatcher Brook Primary Us No 45').addTo(schools),
+L.marker([43.653466, -72.528949], {icon: redMarker}).bindPopup('The Prosper Valley Sch').addTo(schools),
+L.marker([43.8144932, -72.2312088], {icon: redMarker}).bindPopup('Thetford Academy').addTo(schools),
+L.marker([43.8195834, -72.2318682], {icon: redMarker}).bindPopup('Thetford Elementary School').addTo(schools),
+L.marker([44.49478, -73.113504], {icon: redMarker}).bindPopup('Thomas Fleming School').addTo(schools),
+L.marker([43.4494929, -73.0510709], {icon: redMarker}).bindPopup('Tinmouth Elementary School').addTo(schools),
+L.marker([43.0466625, -72.6695342], {icon: redMarker}).bindPopup('Townshend Village School').addTo(schools),
+L.marker([44.995964, -72.405022], {icon: redMarker}).bindPopup('Troy Elementary School').addTo(schools),
+L.marker([43.916965, -72.474808], {icon: redMarker}).bindPopup('TunBridge Central School').addTo(schools),
+L.marker([42.888988, -72.862106], {icon: redMarker}).bindPopup('Twin Valley Elem School').addTo(schools),
+L.marker([42.7879692, -72.8401605], {icon: redMarker}).bindPopup('Twin Valley Middle High School').addTo(schools),
+L.marker([44.2979839, -72.3947042], {icon: redMarker}).bindPopup('Twinfield Us No 33').addTo(schools),
+L.marker([44.2445261, -72.5267125], {icon: redMarker}).bindPopup('U32 Uhs No 32').addTo(schools),
+L.marker([44.5089403, -72.8951245], {icon: redMarker}).bindPopup('Underhill Central Elementary School').addTo(schools),
+L.marker([44.5179951, -72.9456161], {icon: redMarker}).bindPopup('Underhill Elementary School').addTo(schools),
+L.marker([44.2596714, -72.5711386], {icon: redMarker}).bindPopup('Union Elementary School').addTo(schools),
+L.marker([44.5490086, -73.1601394], {icon: redMarker}).bindPopup('Union Memorial School').addTo(schools),
+L.marker([43.2955001, -72.4880611], {icon: redMarker}).bindPopup('Union Street School').addTo(schools),
+L.marker([44.1671634, -73.2480837], {icon: redMarker}).bindPopup('Vergennes Ues No 44').addTo(schools),
+L.marker([44.1699484, -73.2431089], {icon: redMarker}).bindPopup('Vergennes Uhs No 5').addTo(schools),
+L.marker([42.776263, -72.518569], {icon: redMarker}).bindPopup('Vernon Elementary School').addTo(schools),
+L.marker([44.0797483, -72.261316], {icon: redMarker}).bindPopup('Waits River Valley Us No 36').addTo(schools),
+L.marker([44.1944527, -72.8193328], {icon: redMarker}).bindPopup('Waitsfield Elem School').addTo(schools),
+L.marker([44.452801, -72.219322], {icon: redMarker}).bindPopup('Walden School').addTo(schools),
+L.marker([43.470547, -72.9751579], {icon: redMarker}).bindPopup('Wallingford Village School').addTo(schools),
+L.marker([43.0479574, -72.7872992], {icon: redMarker}).bindPopup('Wardsboro Central School').addTo(schools),
+L.marker([44.1162276, -72.851123], {icon: redMarker}).bindPopup('Warren Elementary School').addTo(schools),
+L.marker([44.1078548, -72.4315601], {icon: redMarker}).bindPopup('Washington Village School').addTo(schools),
+L.marker([44.4025729, -71.927544], {icon: redMarker}).bindPopup('Waterford Elementary School').addTo(schools),
+L.marker([44.726855, -72.74841], {icon: redMarker}).bindPopup('Waterville Elementary School').addTo(schools),
+L.marker([43.4112673, -72.4097514], {icon: redMarker}).bindPopup('Weathersfield School').addTo(schools),
+L.marker([43.417881, -73.206711], {icon: redMarker}).bindPopup('Wells Village School').addTo(schools),
+L.marker([43.5954663, -73.0515556], {icon: redMarker}).bindPopup('West Rutland School').addTo(schools),
+L.marker([44.602952, -73.0189539], {icon: redMarker}).bindPopup('Westford Elementary School').addTo(schools),
+L.marker([43.070309, -72.463478], {icon: redMarker}).bindPopup('Westminster Schools').addTo(schools),
+L.marker([43.9065664, -72.2630234], {icon: redMarker}).bindPopup('Westshire School').addTo(schools),
+L.marker([44.04174, -73.212502], {icon: redMarker}).bindPopup('WeyBridge Elementary School').addTo(schools),
+L.marker([43.833232, -72.6435], {icon: redMarker}).bindPopup('Whitcomb Jr-Sr High School').addTo(schools),
+L.marker([43.6533157, -72.3181378], {icon: redMarker}).bindPopup('White River School').addTo(schools),
+L.marker([43.858121, -73.2015179], {icon: redMarker}).bindPopup('Whiting Village School').addTo(schools),
+L.marker([44.123554, -72.545708], {icon: redMarker}).bindPopup('Williamstown Elem School').addTo(schools),
+L.marker([44.1262355, -72.546661], {icon: redMarker}).bindPopup('Williamstown Middle-High School').addTo(schools),
+L.marker([44.44059, -73.073311], {icon: redMarker}).bindPopup('Williston Schools').addTo(schools),
+L.marker([44.44059, -73.073311], {icon: redMarker}).bindPopup('Williston Schools').addTo(schools),
+L.marker([44.447771, -73.096256], {icon: redMarker}).bindPopup('Williston Schools').addTo(schools),
+L.marker([43.1658297, -72.7253414], {icon: redMarker}).bindPopup('Windham Elementary School').addTo(schools),
+L.marker([43.48093, -72.394295], {icon: redMarker}).bindPopup('Windsor School').addTo(schools),
+L.marker([44.501157, -73.18101], {icon: redMarker}).bindPopup('Winooski High School').addTo(schools),
+L.marker([44.501157, -73.18101], {icon: redMarker}).bindPopup('Winooski Middle School').addTo(schools),
+L.marker([44.538219, -72.453148], {icon: redMarker}).bindPopup('Wolcott Elementary School').addTo(schools),
+L.marker([44.440035, -72.416224], {icon: redMarker}).bindPopup('Woodbury Elementary School').addTo(schools),
+L.marker([42.8939304, -73.136866], {icon: redMarker}).bindPopup('Woodford Hollow School').addTo(schools),
+L.marker([44.5022201, -73.1447091], {icon: redMarker}).bindPopup('Woods ide Juvenile Rehab Center').addTo(schools),
+L.marker([43.622024, -72.519711], {icon: redMarker}).bindPopup('Woodstock Elementary School').addTo(schools),
+L.marker([43.613313, -72.54568], {icon: redMarker}).bindPopup('Woodstock Sr Uhs No 4').addTo(schools),
+L.marker([43.613056, -72.545857], {icon: redMarker}).bindPopup('Woodstock Union Middle School').addTo(schools);
+
+
+
+var mbAttr = "<a href ='https://www.polka.rodeo' target='_blank'>Copyright Sebastian Noah Frank at Polka.Rodeo, 2017 </a> | developed by <a href='https://www.route360.net/de/' target='_blank'>Route360°</a>",
+mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic2ViYXN0aWFuZnJhbmsiLCJhIjoiY2l2MGN4aDJ5MDAwdDJ6cGR3aXl2aTNpaCJ9.59MJfDHkE30OxxFJvBtdkQ';
+
+
+var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
+streets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr}),
+outdoors = L.tileLayer(mbUrl, {id: 'mapbox.outdoors',   attribution: mbAttr}),
+physical = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic2ViYXN0aWFuZnJhbmsiLCJhIjoiY2l2MGN4aDJ5MDAwdDJ6cGR3aXl2aTNpaCJ9.59MJfDHkE30OxxFJvBtdkQ', {attribution: mbAttr});
+
+var map = L.map('map', {
+center: [43.44585, -72.823055],
+zoom: 7,
+layers: [grayscale, streets, outdoors, physical, schools]
+});
+
+
+var baseLayers = {
+"Grayscale": grayscale,
+"Streets": streets,
+"Physical": physical,
+"Outdoors": outdoors
+};
+
+var overlays = {
+"Schools": schools
+};
+
+L.control.layers(baseLayers, overlays).addTo(map);
+
+var marker = L.marker(latlon, { 'draggable': true }).addTo(map);
+var polygonLayer = r360.leafletPolygonLayer().addTo(map);
+polygonLayer.setColors([
+{ 'time': 900, 'opacity': 0.4, 'color': '#006837' },
+{ 'time': 1800, 'opacity': 0.4, 'color': '#39B54A' },
+{ 'time': 2700, 'opacity': 0.4, 'color': '#F7931E' },
+{ 'time': 3600, 'opacity': 0.4, 'color': '#C1272D' },
+]);
+var showPolygons = function() {
+polygonLayer.setStrokeWidth(pixel);
+var travelOptions = r360.travelOptions();
+travelOptions.setServiceKey('N2T7JHHPOTJAWSFQ7YOMJYH');
+travelOptions.setServiceUrl('https://service.route360.net/na_northeast/');
+travelOptions.addSource(marker);
+travelOptions.setTravelTimes([900, 1800, 2700, 3600]);
+travelOptions.setTravelType('car');
+r360.PolygonService.getTravelTimePolygons(travelOptions,
+function(polygons) {
+polygonLayer.clearAndAddLayers(polygons, false);
+}
+);
+}
+showPolygons();
+marker.on('dragend', showPolygons);
+
+</script>
+</body>
+</html>

@@ -3,32 +3,35 @@ import L from 'leaflet';
 // postCSS import of Leaflet's CSS
 import 'leaflet/dist/leaflet.css';
 // using webpack json loader we can import our geojson file like this
-import geojson from 'json!./bk_subway_entrances.geojson';
+//import geojson from 'json!./bk_subway_entrances.geojson';
+import geojson from 'json!./vt_schools_county.geojson';
 // import local components Filter and ForkMe
 import Filter from './Filter';
-import ForkMe from './ForkMe';
+import mapboxgl from 'mapbox-gl';
+
 
 // store the map configuration properties in an object,
 // we could also move this to a separate file & import it if desired.
 let config = {};
 config.params = {
-  center: [40.655769,-73.938503],
+  center: [44.153568,-72.660537], 
   zoomControl: false,
   zoom: 13,
   maxZoom: 19,
-  minZoom: 11,
+  minZoom: 7,
   scrollwheel: false,
   legends: true,
   infoControl: false,
   attributionControl: true
 };
+mapboxgl.accessToken = 'pk.eyJ1IjoiYWx0b3Bob3RvIiwiYSI6ImNqNTg3YnQyeDE1bHMyd3RndGtmMzhyaDAifQ.sNFPJ1oHAeURc75FZtcR3A';
+
 config.tileLayer = {
-  uri: 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+  uri: 'mapbox://styles/mapbox/outdoors-v10',
   params: {
     minZoom: 11,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-    id: '',
-    accessToken: ''
+    id: ''
   }
 };
 
@@ -96,7 +99,7 @@ class Map extends Component {
   updateMap(e) {
     let subwayLine = e.target.value;
     // change the subway line filter
-    if (subwayLine === "All lines") {
+    if (subwayLine === "All Counties") {
       subwayLine = "*";
     }
     // update our state with the new filter value
@@ -181,13 +184,14 @@ class Map extends Component {
           // use sort() to put our values in alphanumeric order
           subwayLineNames.sort();
           // finally add a value to represent all of the subway lines
-          subwayLineNames.unshift('All lines');
+          subwayLineNames.unshift('All Counties');
         }
       }
 
       // assemble the HTML for the markers' popups (Leaflet's bindPopup method doesn't accept React JSX)
-      const popupContent = `<h3>${feature.properties.NAME}</h3>
-        <strong>Access to MTA lines: </strong>${feature.properties.LINE}`;
+      const popupContent = `<h2>${feature.properties.NAME}</h2>
+        <h3><strong>${feature.properties.LINE} County</strong></h3>
+        <h2><a href='#' class='smallPolygonLink'>Click me</a></h2>`;
 
       // add our popups
       layer.bindPopup(popupContent);
@@ -220,7 +224,6 @@ class Map extends Component {
               filterLines={this.updateMap} />
         }
         <div ref={(node) => this._mapNode = node} id="map" />
-        <ForkMe />
       </div>
     );
   }
